@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/record/record",
+    "pages/voices/voices",
+    "pages/synthesize/synthesize",
+    "pages/history/history",
+    "pages/dubbing/dubbing",
+    "pages/batch/batch"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "Voice Studio",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f6f7fb",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#9aa0b4",
+    "selectedColor": "#2563eb",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/voices/voices", "text": "音色库" },
+      { "pagePath": "pages/synthesize/synthesize", "text": "合成" },
+      { "pagePath": "pages/history/history", "text": "历史" }
+    ]
+  },
+  "permission": {
+    "scope.record": {
+      "desc": "用于录制声音样本，生成您的专属克隆音色"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "__usePrivacyCheck__": true
+}

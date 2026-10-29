@@ -1,0 +1,95 @@
+/* ===== 全局样式 ===== */
+page {
+  background: #f6f7fb;
+  color: #1f2430;
+  font-size: 28rpx;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  padding: 32rpx 32rpx 48rpx;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* 卡片 */
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(31, 36, 48, 0.04);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+/* 主按钮 */
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding: 20rpx 0;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+}
+
+.btn-primary[disabled] {
+  background: #a9c1f5;
+  color: #ffffff;
+}
+
+.btn-ghost {
+  background: #eef2ff;
+  color: #2563eb;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  padding: 16rpx 32rpx;
+  text-align: center;
+  border: none;
+  line-height: 1.4;
+}
+
+/* 表单 */
+.field-label {
+  font-size: 26rpx;
+  color: #6b7280;
+  margin-bottom: 12rpx;
+}
+
+.input-box {
+  background: #f3f4f8;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  font-size: 30rpx;
+}
+
+/* 空状态 */
+.empty {
+  text-align: center;
+  color: #9aa0b4;
+  padding: 120rpx 0;
+}
+
+.empty-title {
+  font-size: 32rpx;
+  margin-bottom: 12rpx;
+}
+
+/* 弹层遮罩 */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

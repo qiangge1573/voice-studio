@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">① 录制声音样本</view>
+    <view class="record-tip">建议在安静环境录制 5-15 秒，语速平稳、吐字清晰，效果更好</view>
+
+    <view class="recorder-wrap">
+      <view class="record-btn {{recording ? 'recording' : ''}}" bindtap="onRecordTap">
+        <text>{{recording ? '停止' : '开始'}}</text>
+      </view>
+      <view class="record-time" wx:if="{{recording || seconds > 0}}">
+        {{recording ? '录音中 ' : ''}}{{fmtSeconds(seconds)}}
+      </view>
+      <view class="record-wave" wx:if="{{recording}}">
+        <view class="bar"></view><view class="bar"></view><view class="bar"></view>
+        <view class="bar"></view><view class="bar"></view><view class="bar"></view>
+        <view class="bar"></view><view class="bar"></view><view class="bar"></view>
+      </view>
+    </view>
+
+    <view class="preview-row" wx:if="{{tempPath}}">
+      <view class="btn-ghost" bindtap="togglePreview">{{previewing ? '停止试听' : '试听录音'}}</view>
+      <view class="btn-ghost" bindtap="start">重新录制</view>
+    </view>
+
+    <view class="tip-text" wx:if="{{tip}}">{{tip}}</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">② 命名与语言</view>
+
+    <view class="field-label">音色名称</view>
+    <view class="input-box">
+      <input placeholder="例如：我的声音、温柔女声" value="{{name}}" bindinput="onName" maxlength="20" />
+    </view>
+
+    <view class="field-label" style="margin-top: 24rpx;">语言</view>
+    <picker range="{{['中文','English','日本語','한국어','Français','Deutsch','Español']}}" value="{{langIndex}}" bindchange="onLang">
+      <view class="input-box picker-row">{{langIndex === 0 ? '中文' : ['中文','English','日本語','한국어','Français','Deutsch','Español'][langIndex]}} ›</view>
+    </picker>
+
+    <view class="consent-row">
+      <checkbox-group bindchange="onConsent">
+        <label class="consent-label">
+          <checkbox value="1" color="#2563eb" />
+          <text>我确认该声音为本人声音或已获得权利人授权，且将仅用于合法合规用途</text>
+        </label>
+      </checkbox-group>
+    </view>
+  </view>
+
+  <view class="btn-primary submit-btn {{submitting ? 'disabled' : ''}}" bindtap="submit">
+    {{submitting ? '创建中…' : '创建音色'}}
+  </view>
+
+  <view class="legal-note">合成内容由 AI 生成；禁止未经授权克隆、冒充他人声音或用于欺诈等违法用途。</view>
+</view>

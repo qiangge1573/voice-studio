@@ -1,0 +1,77 @@
+<view class="page">
+  <!-- 头部 -->
+  <view class="hero">
+    <view class="hero-title">Voice Studio</view>
+    <view class="hero-sub">录制一段声音，克隆出专属音色，再用它朗读任何文本</view>
+    <view class="hero-badge">AI 语音合成 · 多语言</view>
+  </view>
+
+  <!-- 功能入口 -->
+  <view class="feature card" bindtap="goRecord">
+    <view class="feature-icon icon-mic">🎙️</view>
+    <view class="feature-body">
+      <view class="feature-name">克隆音色</view>
+      <view class="feature-desc">录制 5-15 秒干净声音样本，创建专属音色</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <view class="feature card" bindtap="goSynthesize">
+    <view class="feature-icon icon-wave">🔊</view>
+    <view class="feature-body">
+      <view class="feature-name">文本合成</view>
+      <view class="feature-desc">输入文本，用克隆音色即时生成语音</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <view class="feature card" bindtap="goVoices">
+    <view class="feature-icon icon-lib">🗂️</view>
+    <view class="feature-body">
+      <view class="feature-name">音色库</view>
+      <view class="feature-desc">管理已创建的音色，试听与删除</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <view class="feature card" bindtap="goHistory">
+    <view class="feature-icon icon-his">🕘</view>
+    <view class="feature-body">
+      <view class="feature-name">历史记录</view>
+      <view class="feature-desc">回放最近的合成结果</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <view class="feature card" bindtap="goDubbing">
+    <view class="feature-icon icon-dub">🎬</view>
+    <view class="feature-body">
+      <view class="feature-name">视频配音</view>
+      <view class="feature-desc">上传视频 + 配音台本，自动按时间轴合成配音</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <view class="feature card" bindtap="goBatch">
+    <view class="feature-icon icon-batch">📚</view>
+    <view class="feature-body">
+      <view class="feature-name">批量合成</view>
+      <view class="feature-desc">多行文本一次提交，逐条合成、逐个试听</view>
+    </view>
+    <view class="feature-arrow">›</view>
+  </view>
+
+  <!-- 隐私弹窗 -->
+  <view class="mask" wx:if="{{showPrivacy}}">
+    <view class="privacy-dialog">
+      <view class="privacy-title">使用须知</view>
+      <view class="privacy-body">
+        <text>1. 本功能用于将您本人声音或您已获授权的声音合成语音，仅供合法合规用途。</text>
+        <text>2. 未经他人授权，禁止克隆、合成或冒充他人声音。</text>
+        <text>3. 合成内容由 AI 生成，展示或传播时应予以标识。</text>
+        <text>4. 声音样本将上传至服务器用于生成音色，请勿录制涉密或敏感内容。</text>
+      </view>
+      <view class="btn-primary" bindtap="agreePrivacy">同意并继续</view>
+    </view>
+  </view>
+</view>

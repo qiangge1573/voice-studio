@@ -1,0 +1,90 @@
+.hero {
+  background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  border-radius: 32rpx;
+  padding: 56rpx 40rpx;
+  color: #ffffff;
+  margin-bottom: 40rpx;
+}
+
+.hero-title {
+  font-size: 52rpx;
+  font-weight: 700;
+  letter-spacing: 1rpx;
+}
+
+.hero-sub {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  opacity: 0.9;
+}
+
+.hero-badge {
+  display: inline-block;
+  margin-top: 24rpx;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999rpx;
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+}
+
+.feature-icon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 22rpx;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+  margin-right: 28rpx;
+  flex-shrink: 0;
+}
+
+.feature-body {
+  flex: 1;
+}
+
+.feature-name {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.feature-desc {
+  font-size: 26rpx;
+  color: #6b7280;
+  margin-top: 6rpx;
+}
+
+.feature-arrow {
+  color: #c3c8d6;
+  font-size: 40rpx;
+}
+
+.privacy-dialog {
+  width: 84%;
+  background: #ffffff;
+  border-radius: 32rpx;
+  padding: 48rpx 40rpx 40rpx;
+}
+
+.privacy-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.privacy-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  font-size: 27rpx;
+  color: #4b5563;
+  margin-bottom: 40rpx;
+}
