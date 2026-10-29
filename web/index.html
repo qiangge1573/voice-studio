@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Studio 网页版 · 声音克隆工作台</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="brand-mark" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true">
+      <path d="M2 12h3l2-5 3 10 3-8 2 3h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="brand-name">VOICE&nbsp;STUDIO</div>
+  </div>
+  <div class="topbar-right">
+    <button class="chip" id="conn-chip" type="button" title="点击设置后端地址">未连接</button>
+    <button class="icon-btn" id="settings-btn" type="button" aria-label="设置">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path d="M12 15.5A3.5 3.5 0 1 0 12 8a3.5 3.5 0 0 0 0 7.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15.1 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1.01Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" aria-label="功能导航"></nav>
+
+<main class="stage">
+  <!-- ===== 首页 ===== -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <div class="hero-wave" id="hero-wave" aria-hidden="true"></div>
+      <h1 class="hero-title">把你的声音，变成可复用的音色</h1>
+      <p class="hero-sub">录制一段样本，克隆专属音色；朗读任意文本、给视频配音、批量合成——全部在浏览器里完成。</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-nav="record" type="button">克隆音色</button>
+        <button class="btn btn-ghost" data-nav="synth" type="button">试试文本合成</button>
+      </div>
+      <div class="hero-meta"><span id="hero-engine">引擎状态</span></div>
+    </div>
+
+    <div class="feature-grid">
+      <article class="feature-card" data-nav="record">
+        <div class="feature-head"><span class="feature-num">01</span><span class="feature-title">克隆音色</span></div>
+        <p>浏览器内录音 5–20 秒，上传创建专属音色。需确认声音授权。</p>
+      </article>
+      <article class="feature-card" data-nav="synth">
+        <div class="feature-head"><span class="feature-num">02</span><span class="feature-title">文本合成</span></div>
+        <p>选择音色、输入文本，异步合成并即时播放，标注 AI 合成内容。</p>
+      </article>
+      <article class="feature-card" data-nav="dub">
+        <div class="feature-head"><span class="feature-num">03</span><span class="feature-title">视频配音</span></div>
+        <p>上传视频与配音台本，支持时间锚点，自动按时间轴混音输出。</p>
+      </article>
+      <article class="feature-card" data-nav="batch">
+        <div class="feature-head"><span class="feature-num">04</span><span class="feature-title">批量合成</span></div>
+        <p>多行文本一次提交，逐条合成、逐个试听，适合成批制作。</p>
+      </article>
+    </div>
+
+    <p class="legal">本工具仅用于克隆本人或已获授权的声音；合成内容由 AI 生成，展示与传播时请按要求标识。</p>
+  </section>
+
+  <!-- ===== 克隆音色 ===== -->
+  <section class="view" id="view-record" hidden>
+    <div class="panel">
+      <h2 class="panel-title">录制声音样本</h2>
+      <p class="panel-sub">安静环境、语速平稳、吐字清晰，5–20 秒即可。录音会先转成 16kHz 单声道 WAV 再上传。</p>
+      <div class="record-stage">
+        <button class="record-btn" id="record-btn" type="button">
+          <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="currentColor"/></svg>
+          <span id="record-btn-label">开始录音</span>
+        </button>
+        <div class="record-meter" id="record-meter" aria-hidden="true"></div>
+        <div class="record-time" id="record-time">00:00</div>
+      </div>
+      <div class="preview-row" id="record-preview" hidden>
+        <audio id="record-preview-audio" controls></audio>
+        <button class="btn btn-ghost" id="re-record-btn" type="button">重新录制</button>
+      </div>
+      <div class="err-line" id="record-err"></div>
+    </div>
+
+    <div class="panel">
+      <h2 class="panel-title">命名与授权</h2>
+      <label class="field-label" for="voice-name">音色名称</label>
+      <input class="input" id="voice-name" maxlength="20" placeholder="例如：我的声音、温柔女声">
+      <label class="field-label" for="voice-lang">语言</label>
+      <select class="input" id="voice-lang">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+      </select>
+      <label class="check-row">
+        <input type="checkbox" id="voice-consent">
+        <span>我确认该声音为本人声音或已获权利人授权，且将仅用于合法合规用途</span>
+      </label>
+      <button class="btn btn-primary" id="create-voice-btn" type="button">创建音色</button>
+      <div class="err-line" id="create-voice-err"></div>
+    </div>
+  </section>
+
+  <!-- ===== 音色库 ===== -->
+  <section class="view" id="view-voices" hidden>
+    <div class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">音色库</h2>
+        <button class="btn btn-ghost" data-nav="record" type="button">新建音色</button>
+      </div>
+      <div id="voice-list"></div>
+      <div class="empty" id="voice-empty" hidden>
+        <p>还没有音色</p>
+        <button class="btn btn-primary" data-nav="record" type="button">去录制声音</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 文本合成 ===== -->
+  <section class="view" id="view-synth" hidden>
+    <div class="panel">
+      <h2 class="panel-title">文本合成</h2>
+      <label class="field-label" for="synth-voice">音色</label>
+      <select class="input" id="synth-voice"><option value="">（请先创建音色）</option></select>
+      <label class="field-label" for="synth-text">文本（最多 1000 字）</label>
+      <textarea class="input textarea" id="synth-text" maxlength="1000" placeholder="输入想要合成的文本，例如：欢迎使用我的专属语音助手。"></textarea>
+      <div class="counter" id="synth-counter">0 / 1000</div>
+      <button class="btn btn-primary" id="synth-btn" type="button">开始合成</button>
+      <div class="err-line" id="synth-err"></div>
+    </div>
+    <div class="panel" id="synth-result" hidden>
+      <div class="panel-head">
+        <h2 class="panel-title">合成结果</h2>
+        <span class="ai-tag">AI 合成内容</span>
+      </div>
+      <div class="play-row">
+        <button class="btn btn-primary" id="synth-play-btn" type="button">播放</button>
+        <audio id="synth-audio" controls></audio>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 视频配音 ===== -->
+  <section class="view" id="view-dub" hidden>
+    <div class="panel">
+      <h2 class="panel-title">视频配音</h2>
+      <label class="field-label" for="dub-video">视频文件（建议 ≤50MB，mp4 / mov 等）</label>
+      <input class="input" id="dub-video" type="file" accept="video/*">
+      <div class="video-box" id="dub-source-box" hidden><video id="dub-source" controls></video></div>
+      <label class="field-label" for="dub-voice">音色</label>
+      <select class="input" id="dub-voice"><option value="">（请先创建音色）</option></select>
+      <label class="field-label" for="dub-script">配音台本（每行一条）</label>
+      <textarea class="input textarea" id="dub-script" placeholder="[00:02] 大家好，欢迎收看本期节目&#10;[00:05] 今天我们来演示视频配音&#10;这段没有时间戳，会接在上一句后面"></textarea>
+      <p class="hint">格式：<code>[mm:ss] 文本</code> 锚定时间；纯文本行顺序接续，首段从 0 开始。</p>
+      <div class="radio-row">
+        <label class="radio-item"><input type="radio" name="dub-mode" value="overlay" checked><span>配音叠加（压低原声）</span></label>
+        <label class="radio-item"><input type="radio" name="dub-mode" value="replace"><span>替换原音轨</span></label>
+      </div>
+      <button class="btn btn-primary" id="dub-btn" type="button">开始配音</button>
+      <div class="err-line" id="dub-err"></div>
+    </div>
+    <div class="panel" id="dub-result" hidden>
+      <div class="panel-head">
+        <h2 class="panel-title">配音结果</h2>
+        <span class="ai-tag">AI 合成配音</span>
+      </div>
+      <video id="dub-output" controls></video>
+    </div>
+    <div class="panel">
+      <h2 class="panel-title">最近任务</h2>
+      <div id="dub-tasks"></div>
+    </div>
+  </section>
+
+  <!-- ===== 批量合成 ===== -->
+  <section class="view" id="view-batch" hidden>
+    <div class="panel">
+      <h2 class="panel-title">批量合成</h2>
+      <label class="field-label" for="batch-voice">音色</label>
+      <select class="input" id="batch-voice"><option value="">（请先创建音色）</option></select>
+      <label class="field-label" for="batch-text">批量文本（每行一条，最多 100 行）</label>
+      <textarea class="input textarea" id="batch-text" placeholder="第一条文本&#10;第二条文本&#10;第三条文本"></textarea>
+      <div class="counter" id="batch-counter">0 行</div>
+      <button class="btn btn-primary" id="batch-btn" type="button">批量合成</button>
+      <div class="err-line" id="batch-err"></div>
+    </div>
+    <div class="panel" id="batch-result" hidden>
+      <div class="panel-head"><h2 class="panel-title">合成结果</h2><span class="ai-tag">AI 合成内容</span></div>
+      <div id="batch-items"></div>
+    </div>
+  </section>
+
+  <!-- ===== 历史 ===== -->
+  <section class="view" id="view-history" hidden>
+    <div class="panel">
+      <h2 class="panel-title">合成历史</h2>
+      <div id="history-list"></div>
+      <div class="empty" id="history-empty" hidden><p>暂无合成记录</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">Voice Studio 网页版 · 声音克隆 / 文本合成 / 视频配音 / 批量合成 · 仅限合法合规用途</footer>
+
+<!-- 后端地址设置弹窗 -->
+<div class="modal-mask" id="modal-mask" hidden>
+  <div class="modal">
+    <h3 class="modal-title">后端连接</h3>
+    <label class="field-label" for="base-url-input">后端地址</label>
+    <input class="input" id="base-url-input" placeholder="http://127.0.0.1:8000" spellcheck="false">
+    <p class="hint">网页版复用 Voice Studio 后端。默认本地地址；部署公网后改为你的 https 后端地址并保存。</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modal-close" type="button">取消</button>
+      <button class="btn btn-primary" id="modal-save" type="button">保存并连接</button>
+    </div>
+    <div class="err-line" id="modal-err"></div>
+  </div>
+</div>
+
+<script src="./app.js"></script>
+</body>
+</html>
