@@ -1,0 +1,24 @@
+# ============ 基础依赖（必装，mock 引擎即可跑通全流程） ============
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+requests>=2.31
+pydantic>=2.6
+# 视频配音用：无系统 ffmpeg 时的静态二进制（生产建议 brew install ffmpeg）
+imageio-ffmpeg>=0.5.1
+
+# ============ 自托管语音克隆引擎（按需安装，二选一或都装） ============
+# 方案 A：XTTS v2（Coqui，多语言、零样本克隆，中文效果佳，GPU 建议）
+# torch>=2.1
+# TTS>=0.22.0
+#
+# 方案 B：CosyVoice2（阿里 FunAudioLLM，中文效果一流）
+# torch>=2.1
+# torchaudio>=2.1
+# 并按其官方 README 安装 cosyvoice 包与模型：
+#   git clone https://github.com/FunAudioLLM/CosyVoice && cd CosyVoice
+#   pip install -r requirements.txt
+#   pip install -e .
+#   模型: modelscope download --model iic/CosyVoice2-0.5B pretrained_models/CosyVoice2-0.5B
+
+# 系统依赖：ffmpeg（用于音频格式归一化，可选但建议安装）
