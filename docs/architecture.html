@@ -1,0 +1,77 @@
+<html style="margin:0;padding:0;">
+<title>Voice Studio 小程序架构</title>
+<div style="width:100%;box-sizing:border-box;background:#f6f7fb;font-family:-apple-system,'PingFang SC','Helvetica Neue',sans-serif;color:#1f2430;padding:20px;">
+  <div style="font-size:22px;font-weight:700;margin-bottom:4px;">Voice Studio 微信小程序 · 系统架构</div>
+  <div style="font-size:13px;color:#6b7280;margin-bottom:16px;">数据流：录音采样 → 上传建音色 → 文本合成 → 播放与历史 · 引擎可插拔（XTTS / CosyVoice / Mock）</div>
+
+  <svg viewBox="0 0 960 560" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+      </marker>
+      <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 z" fill="#10b981"/>
+      </marker>
+    </defs>
+
+    <!-- 微信开放平台 -->
+    <rect x="40" y="18" width="880" height="78" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+    <text x="56" y="46" font-size="15" font-weight="700" fill="#3730a3">微信开放平台</text>
+    <text x="56" y="70" font-size="12.5" fill="#4338ca">wx.login code → jscode2session → openid（小程序后台配置 AppID/AppSecret 与合法域名）</text>
+    <path d="M300,96 L300,150" stroke="#6366f1" stroke-width="2" marker-end="url(#arrG)"/>
+
+    <!-- 小程序前端 -->
+    <rect x="40" y="150" width="300" height="330" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="56" y="178" font-size="15" font-weight="700" fill="#1d4ed8">① 微信小程序（miniprogram/）</text>
+    <rect x="56" y="192" width="268" height="120" rx="8" fill="#eff6ff"/>
+    <text x="70" y="214" font-size="12.5" fill="#1e40af" font-weight="600">页面 pages/</text>
+    <text x="70" y="234" font-size="12" fill="#334155">· index 首页与使用须知</text>
+    <text x="70" y="252" font-size="12" fill="#334155">· record 录音采样（RecorderManager）</text>
+    <text x="70" y="270" font-size="12" fill="#334155">· voices 音色库（试听/删除/去合成）</text>
+    <text x="70" y="288" font-size="12" fill="#334155">· synthesize 文本合成（轮询任务）</text>
+    <text x="70" y="306" font-size="12" fill="#334155">· dubbing 视频配音 · batch 批量合成</text>
+    <rect x="56" y="322" width="268" height="88" rx="8" fill="#f8fafc"/>
+    <text x="70" y="344" font-size="12.5" fill="#1e40af" font-weight="600">工具 utils/ 与能力</text>
+    <text x="70" y="364" font-size="12" fill="#334155">· api.js 请求/上传/登录/authUrl(带 token)</text>
+    <text x="70" y="382" font-size="12" fill="#334155">· config.js 后端地址与登录模式</text>
+    <text x="70" y="400" font-size="12" fill="#334155">· 声音授权确认 + AI 合成标识 + chooseMedia 选视频</text>
+    <path d="M340,300 L380,300" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr)"/>
+    <text x="318" y="288" font-size="11.5" fill="#2563eb">HTTPS</text>
+
+    <!-- FastAPI 后端 -->
+    <rect x="380" y="150" width="290" height="330" rx="12" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+    <text x="396" y="178" font-size="15" font-weight="700" fill="#b45309">② FastAPI 后端（server/）</text>
+    <rect x="396" y="192" width="258" height="140" rx="8" fill="#fff7ed"/>
+    <text x="410" y="214" font-size="12.5" fill="#b45309" font-weight="600">路由 routers/</text>
+    <text x="410" y="234" font-size="12" fill="#334155">· /api/auth/login  code2session → JWT</text>
+    <text x="410" y="252" font-size="12" fill="#334155">· /api/voices     上传样本/列表/试听/删除</text>
+    <text x="410" y="270" font-size="12" fill="#334155">· /api/tts        合成提交/任务轮询/音频</text>
+    <text x="410" y="288" font-size="12" fill="#334155">· /api/dubbing    视频配音（ffmpeg 混音）</text>
+    <text x="410" y="306" font-size="12" fill="#334155">· /api/batch      批量合成 · /api/history 历史</text>
+    <text x="410" y="330" font-size="12" fill="#6b7280">鉴权：Bearer 令牌（音频/视频用 ?token= 查询参数）</text>
+    <rect x="396" y="342" width="258" height="62" rx="8" fill="#f8fafc"/>
+    <text x="410" y="364" font-size="12.5" fill="#b45309" font-weight="600">存储</text>
+    <text x="410" y="384" font-size="12" fill="#334155">SQLite：users / voices / tts_tasks</text>
+    <text x="410" y="399" font-size="12" fill="#334155">+ dubbing_tasks / batch_tasks；samples/outputs/videos</text>
+    <path d="M670,300 L710,300" stroke="#d97706" stroke-width="2.5" marker-end="url(#arr)"/>
+
+    <!-- 引擎层 -->
+    <rect x="710" y="150" width="210" height="330" rx="12" fill="#ffffff" stroke="#10b981" stroke-width="1.5"/>
+    <text x="726" y="178" font-size="15" font-weight="700" fill="#047857">③ 语音引擎</text>
+    <rect x="726" y="192" width="178" height="200" rx="8" fill="#ecfdf5"/>
+    <text x="740" y="216" font-size="12.5" fill="#047857" font-weight="600">engines/（可插拔）</text>
+    <text x="740" y="240" font-size="12" fill="#334155">cloud · 火山云 few-shot</text>
+    <text x="740" y="258" font-size="12" fill="#334155">默认；无密钥回退 mock</text>
+    <text x="740" y="286" font-size="12" fill="#334155">mock · 占位音频联调</text>
+    <text x="740" y="304" font-size="12" fill="#334155">无需 GPU 即可跑通链路</text>
+    <text x="740" y="332" font-size="12" fill="#334155">XTTS / CosyVoice · 自托管</text>
+    <text x="740" y="350" font-size="12" fill="#334155">备选（需 GPU 服务器）</text>
+    <text x="740" y="378" font-size="12" fill="#6b7280">配置：ENGINE=cloud|mock|xtts|cosyvoice</text>
+  </svg>
+
+  <div style="margin-top:14px;font-size:13px;color:#374151;line-height:1.9;">
+    <b>端到端流程：</b>① 小程序录音（mp3，≤10MB）→ <code>POST /api/voices</code> 建音色（须勾选声音授权）→ ② <code>POST /api/tts/synthesize</code> 提交文本 → 后端线程池异步调引擎合成（默认火山云 few-shot 复刻，AIGC 水印）→ 前端每 1.5s 轮询任务状态 → ③ 完成后 <code>InnerAudioContext</code> 播放（URL 带 token），记录写入历史。视频配音：上传视频 + 台本 → 逐段合成 → ffmpeg 按时间轴混音 → 输出 mp4。<br/>
+    <b>合规要点：</b>仅允许克隆本人/已授权声音（界面强制确认）；合成结果标注「AI 合成内容」并默认开 AIGC 水印；上架需配置深度合成类服务类目并通过审核（以微信官方最新要求为准）。
+  </div>
+</div>
+</html>
