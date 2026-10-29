@@ -23,13 +23,11 @@
 | 合成历史 | 回放、下载、删除历史记录 |
 | 登录鉴权 | 微信 jscode2session → 自签 JWT；开发模式（dev_login）免微信联调 |
 
-## 网页截图
+## 网页演示
 
-| 首页 | 克隆音色 |
-| --- | --- |
-| ![首页](screenshots/home.png) | ![克隆音色](screenshots/record.png) |
+在线体验（网页版已发布）：**https://4kvnug8q3w1ju.doubao.link/app/app_17gwg6npuxu**
 
-> 截图于本地打开、mock 引擎（未配置 `VOLC_API_KEY`，合成输出为演示音）的运行状态；配置真实后端与 `VOLC_API_KEY` 后引擎状态与合成效果随之生效。
+> 演示为 mock 引擎（未配置 `VOLC_API_KEY`，合成输出为演示音）的运行状态；配置真实后端与 `VOLC_API_KEY` 后引擎状态与合成效果随之生效。网页截图（首页、克隆音色页，PNG）随本地交付包 `screenshots/` 提供，因仓库 API 仅支持文本文件而未随源码提交。
 
 ## 架构
 
@@ -58,7 +56,7 @@ FastAPI 后端 server/
 voice-studio/
 ├─ README.md
 ├─ docs/architecture.html      # 架构可视化（浏览器打开）
-├─ screenshots/                # 网页版截图
+├─ screenshots/                # 网页版截图（随本地交付包提供，未随仓库提交）
 ├─ miniprogram/                # 微信小程序前端（微信开发者工具导入此目录）
 │  ├─ app.js / app.json / app.wxss / project.config.json / sitemap.json
 │  ├─ utils/        api.js（请求/上传/登录/authUrl）· config.js（后端地址/登录模式）
@@ -126,7 +124,7 @@ python main.py
 | GET | `/api/voices` · `/api/voices/{id}/sample` · DELETE `/api/voices/{id}` | 列表 / 试听 / 删除 |
 | POST | `/api/tts/synthesize` | `{voice_id, text(≤1000字), language}` → `{task_id}` |
 | GET | `/api/tts/tasks/{id}` · `/api/tts/tasks/{id}/audio` | 轮询状态 / 下载音频 |
-| POST | `/api/dubbing` | multipart `file`(≤100MB) + `voice_id/script/mode(overlay|replace)` |
+| POST | `/api/dubbing` | multipart `file`(≤100MB) + `voice_id/script/mode(overlay\|replace)` |
 | GET | `/api/dubbing/tasks` · `/api/dubbing/tasks/{id}` · `.../video` | 任务列表 / 状态 / 下载成片 |
 | POST | `/api/batch` | `{voice_id, lines(≤100行), language}` → 任务轮询含 `items[]` |
 | GET/DELETE | `/api/history` · `/api/history/{task_id}` | 历史列表 / 删除 |
