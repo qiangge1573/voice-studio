@@ -1,0 +1,166 @@
+.picker-row {
+  color: #1f2430;
+}
+
+.no-voice {
+  padding: 24rpx 0;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-area {
+  width: 100%;
+  min-height: 220rpx;
+  background: #f3f4f8;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.line-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #9aa0b4;
+  margin-top: 12rpx;
+}
+
+.synth-btn {
+  margin-bottom: 32rpx;
+}
+
+.synth-btn.disabled {
+  opacity: 0.6;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f3f4f8;
+}
+
+.item-row:last-child {
+  border-bottom: none;
+}
+
+.item-main {
+  flex: 1;
+  min-width: 0;
+  margin-right: 20rpx;
+}
+
+.item-text {
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.item-meta {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.item-status {
+  font-size: 22rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.item-status.done {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.item-status.failed {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.item-status.pending,
+.item-status.running {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+.item-error {
+  font-size: 22rpx;
+  color: #ef4444;
+}
+
+.item-play {
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 14rpx;
+  padding: 12rpx 28rpx;
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.item-play.active {
+  background: #ef4444;
+}
+
+.ai-label {
+  display: inline-block;
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: #9aa0b4;
+  border: 2rpx solid #e5e7eb;
+  border-radius: 999rpx;
+  padding: 6rpx 20rpx;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f3f4f8;
+}
+
+.task-row:last-child {
+  border-bottom: none;
+}
+
+.task-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-name {
+  font-size: 28rpx;
+}
+
+.task-meta {
+  font-size: 23rpx;
+  color: #9aa0b4;
+  margin-top: 6rpx;
+}
+
+.task-status {
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+}
+
+.task-status.done {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.task-status.failed {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.task-status.pending,
+.task-status.running {
+  background: #fef9c3;
+  color: #ca8a04;
+}

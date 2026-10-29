@@ -1,0 +1,30 @@
+<view class="page">
+  <block wx:if="{{!loading && items.length === 0}}">
+    <view class="empty">
+      <view class="empty-title">暂无合成记录</view>
+      <view>去合成一段语音，记录会出现在这里</view>
+      <view class="btn-primary empty-btn" bindtap="goSynthesize">去合成</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="h-item" wx:for="{{items}}" wx:key="task_id">
+      <view class="h-main">
+        <view class="h-text">{{item.text}}</view>
+        <view class="h-meta">
+          <text>{{item.voice_name}}</text>
+          <text> · {{item.created_at_text}}</text>
+          <text wx:if="{{item.status === 'failed'}}" class="h-fail"> · 失败</text>
+        </view>
+      </view>
+      <view class="h-actions" wx:if="{{item.status === 'done'}}">
+        <view class="h-play {{playingId === item.task_id ? 'active' : ''}}" catchtap="onPlay" data-id="{{item.task_id}}">
+          {{playingId === item.task_id ? '停止' : '播放'}}
+        </view>
+        <view class="h-del" catchtap="onDelete" data-id="{{item.task_id}}">删除</view>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{loading}}" class="empty">加载中…</view>
+</view>

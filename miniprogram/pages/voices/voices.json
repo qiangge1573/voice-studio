@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "voice-card": "/components/voice-card/voice-card"
+  },
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "音色库"
+}

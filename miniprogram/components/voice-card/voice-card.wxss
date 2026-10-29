@@ -1,0 +1,67 @@
+.v-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 4rpx 20rpx rgba(31, 36, 48, 0.04);
+}
+
+.v-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.v-name {
+  font-size: 34rpx;
+  font-weight: 600;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v-tag {
+  background: #eef2ff;
+  color: #2563eb;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  padding: 6rpx 20rpx;
+}
+
+.v-meta {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: #9aa0b4;
+}
+
+.v-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+
+.v-btn {
+  flex: 1;
+  text-align: center;
+  padding: 16rpx 0;
+  border-radius: 16rpx;
+  background: #f3f4f8;
+  color: #374151;
+  font-size: 27rpx;
+}
+
+.v-btn.active {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.v-btn.primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.v-btn.danger {
+  background: #ffffff;
+  color: #ef4444;
+  border: 2rpx solid #fecaca;
+}

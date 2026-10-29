@@ -1,0 +1,15 @@
+<view class="v-card">
+  <view class="v-head">
+    <view class="v-name">{{voice.name}}</view>
+    <view class="v-tag">{{voice.lang}}</view>
+  </view>
+  <view class="v-meta">
+    <text wx:if="{{voice.sample_duration > 0}}">样本 {{voice.sample_duration}}s · </text>
+    <text>创建于 {{voice.created_at_text}}</text>
+  </view>
+  <view class="v-actions">
+    <view class="v-btn {{playing ? 'active' : ''}}" catchtap="onPlay">{{playing ? '停止' : '试听'}}</view>
+    <view class="v-btn primary" catchtap="onUse">去合成</view>
+    <view class="v-btn danger" catchtap="onDelete">删除</view>
+  </view>
+</view>

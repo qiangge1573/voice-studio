@@ -1,0 +1,49 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">选择音色</view>
+    <block wx:if="{{loading}}">
+      <view class="field-label">加载中…</view>
+    </block>
+    <block wx:elif="{{voices.length === 0}}">
+      <view class="no-voice">
+        <view>还没有可用音色</view>
+        <view class="btn-ghost" bindtap="goCreateVoice">去录制声音</view>
+      </view>
+    </block>
+    <block wx:else>
+      <picker range="{{voiceNames}}" value="{{voiceIndex}}" bindchange="onVoice">
+        <view class="input-box picker-row">
+          {{voiceIndex >= 0 ? voiceNames[voiceIndex] : '请选择音色'}} ›
+        </view>
+      </picker>
+    </block>
+  </view>
+
+  <view class="card">
+    <view class="card-title">输入文本</view>
+    <textarea
+      class="text-area"
+      placeholder="输入想要合成的文本，例如：欢迎使用我的专属语音助手。"
+      value="{{text}}"
+      bindinput="onText"
+      maxlength="1000"
+      auto-height
+      show-confirm-bar="{{false}}"
+    />
+    <view class="counter">{{left}} / 1000</view>
+  </view>
+
+  <view class="btn-primary synth-btn {{generating ? 'disabled' : ''}}" bindtap="synthesize">
+    {{generating ? '合成中，请稍候…' : '开始合成'}}
+  </view>
+
+  <view class="card result-card" wx:if="{{audioUrl}}">
+    <view class="card-title">合成结果</view>
+    <view class="result-row">
+      <view class="play-btn {{playing ? 'playing' : ''}}" bindtap="togglePlay">
+        {{playing ? '⏸ 停止' : '▶ 播放'}}
+      </view>
+      <view class="ai-label">AI 合成内容</view>
+    </view>
+  </view>
+</view>

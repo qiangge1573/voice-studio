@@ -1,0 +1,26 @@
+<view class="page">
+  <block wx:if="{{!loading && voices.length === 0}}">
+    <view class="empty">
+      <view class="empty-title">还没有音色</view>
+      <view>录制一段声音，创建你的第一个专属音色</view>
+      <view class="btn-primary empty-btn" bindtap="goRecord">去录制</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view wx:for="{{voices}}" wx:key="id" class="voice-item">
+      <voice-card
+        voice="{{item}}"
+        playing="{{playingId === item.id}}"
+        bind:play="onPlay"
+        bind:delete="onDelete"
+        bind:use="onUse"
+      />
+    </view>
+    <view class="add-row" bindtap="goRecord">
+      <view class="add-btn">＋ 创建新音色</view>
+    </view>
+  </block>
+
+  <view wx:if="{{loading}}" class="empty">加载中…</view>
+</view>

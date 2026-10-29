@@ -1,0 +1,63 @@
+.h-item {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx 32rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4rpx 20rpx rgba(31, 36, 48, 0.04);
+}
+
+.h-main {
+  flex: 1;
+  min-width: 0;
+  margin-right: 20rpx;
+}
+
+.h-text {
+  font-size: 29rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10rpx;
+}
+
+.h-meta {
+  font-size: 24rpx;
+  color: #9aa0b4;
+}
+
+.h-fail {
+  color: #ef4444;
+}
+
+.h-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  flex-shrink: 0;
+}
+
+.h-play {
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 14rpx;
+  padding: 12rpx 28rpx;
+  font-size: 26rpx;
+}
+
+.h-play.active {
+  background: #ef4444;
+}
+
+.h-del {
+  color: #ef4444;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 6rpx 0;
+}
+
+.empty-btn {
+  width: 320rpx;
+  margin: 40rpx auto 0;
+}
